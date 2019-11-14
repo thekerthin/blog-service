@@ -9,7 +9,7 @@ export default class BlogRepository extends Repository<Blog> {
     const count = await this.count();
     const blogs = await this.createQueryBuilder('blog')
       .addSelect('owner')
-      .innerJoin('blog.owner', 'owner')
+      .leftJoin('blog.owner', 'owner')
       .getMany();
 
     return [blogs, count];
