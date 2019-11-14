@@ -23,7 +23,7 @@ export class CreateBlogDto extends BlogDomainEntity {
 
   @ApiModelProperty()
   @IsString()
-  ownerId: string;
+  owner: string;
 
   @ApiModelProperty()
   @IsBoolean()

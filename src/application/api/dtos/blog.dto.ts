@@ -15,7 +15,7 @@ export class BlogDto extends BlogDomainEntity {
   content: string;
 
   @ApiModelProperty()
-  ownerId: string;
+  owner: string;
 
   @ApiModelProperty()
   isPublic: boolean;

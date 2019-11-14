@@ -17,11 +17,15 @@ It's important that you download this [repository](https://github.com/thekerthin
 $ lerna exec yarn link
 ```
 
-Once you've run the above command inside of the `template-service` you run the following
+Once you've run the above command inside of the `blog-service` you run the following
 
 ```sh
-$ yarn link @kerthin/cqrs
-$ yarn link @kerthin/utils
+$ yarn
+
+$ yarn link "@kerthin/cqrs" && \
+  yarn link "@kerthin/utils" && \
+  yarn link "@kerthin/logger" && \
+  yarn link "@kerthin/bus"
 ```
 
 

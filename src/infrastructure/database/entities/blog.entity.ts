@@ -1,4 +1,4 @@
-import { Entity, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, PrimaryColumn } from 'typeorm';
+import { Entity, Column, CreateDateColumn, UpdateDateColumn, ManyToOne, PrimaryColumn, JoinColumn } from 'typeorm';
 import { User } from './user.entity';
 
 @Entity('blogs')
@@ -15,14 +15,12 @@ export class Blog {
   @Column({ type: 'text' })
   content: string;
 
-  @Column({ length: 36, name: 'owner_id' })
-  ownerId: string;
+  @JoinColumn({ name: 'owner_id' })
+  @ManyToOne(type => User, user => user.blogs)
+  owner: User;
 
   @Column({ type: 'bool', default: false, name: 'is_public' })
   isPublic: boolean;
-
-  @ManyToOne(type => User, user => user.blogs)
-  user: User;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt: Date;

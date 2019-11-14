@@ -19,7 +19,7 @@ export class User {
   @Column({ length: 100, unique: true })
   email: string;
 
-  @OneToMany(type => Blog, blog => blog.user)
+  @OneToMany(type => Blog, blog => blog.owner)
   blogs: Blog[];
 
 }

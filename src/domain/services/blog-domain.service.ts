@@ -1,8 +1,11 @@
 import { Injectable } from '@nestjs/common';
 import { EmitEvent, EventBus } from '@kerthin/cqrs';
+import * as R from 'ramda';
 import { toPaginatedResult, PaginationResult, isEmptyOrNil, ElementNotFoundError } from '@kerthin/utils';
 import BlogRepository from '@infrastructure/database/repositories/blog.repository';
 import { BlogDomainEntity } from '@domain/entities/blog-domain.entity';
+
+const wrapOwner = R.evolve({ owner: R.objOf('id') });
 
 @Injectable()
 export default class BlogDomainService {
@@ -14,7 +17,7 @@ export default class BlogDomainService {
 
   @EmitEvent({ context: 'blog', action: 'blogCreated' })
   async create(data: BlogDomainEntity): Promise<BlogDomainEntity> {
-    const blog = this.repository.create(data);
+    const blog = this.repository.create(wrapOwner(data));
 
     return this.repository.save(blog) as unknown as BlogDomainEntity;
   }
@@ -27,7 +30,7 @@ export default class BlogDomainService {
       throw new ElementNotFoundError(`The blog with id '${data.id}' doesn't exists.`);
     }
 
-    return this.repository.save({ ...blog, ...data });
+    return this.repository.save({ ...blog, ...wrapOwner(data) });
   }
 
   @EmitEvent({ context: 'blog', action: 'blogDeleted' })
@@ -42,7 +45,7 @@ export default class BlogDomainService {
   }
 
   findAll(options): Promise<PaginationResult<BlogDomainEntity>> {
-    return this.repository.findAndCount()
+    return this.repository.findAndCountCustom()
       .then(toPaginatedResult(options));
   }
 

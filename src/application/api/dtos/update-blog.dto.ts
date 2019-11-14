@@ -21,7 +21,7 @@ export class UpdateBlogDto extends BlogDomainEntity {
   @ApiModelProperty()
   @IsOptional()
   @IsString()
-  ownerId: string;
+  owner: string;
 
   @ApiModelProperty()
   @IsOptional()

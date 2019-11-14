@@ -3,7 +3,7 @@ export class BlogDomainEntity {
   title: string;
   description?: string;
   content: string;
-  ownerId: string;
+  owner: string;
   isPublic: boolean;
   createdAt: string;
   updatedAt?: string;

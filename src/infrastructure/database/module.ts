@@ -10,7 +10,7 @@ const dbConfig = TypeOrmModule.forRoot({
   url: process.env.DATABASE_URL,
   entities: [__dirname + '/entities/*.entity{.ts,.js}'],
   migrations: [__dirname + '/migrations/*{.ts,.js}'],
-  // logging: 'all',
+  logging: ['error'],
 });
 
 const providerRepositories = TypeOrmModule.forFeature([
